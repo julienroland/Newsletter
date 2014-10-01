@@ -1,3 +1,6 @@
-# SimpleNewsletter
-### Based on Laravel
+# Newsletter
+#### Based on Laravel
 
+- Native
+- Mailchimp
+- ..
