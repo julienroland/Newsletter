@@ -11,11 +11,18 @@ class EloquentNewsletterControllerRepository implements NewsletterControllerRepo
      */
     private $newsletter;
 
+    /**
+     * @param Newsletter $newsletter
+     */
     public function __construct(Newsletter $newsletter)
     {
         $this->newsletter = $newsletter;
     }
 
+    /**
+     * @param $input
+     * @return static
+     */
     public function store($input)
     {
         return $this->newsletter->create($input);

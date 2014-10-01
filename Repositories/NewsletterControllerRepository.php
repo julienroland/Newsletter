@@ -3,6 +3,10 @@
 interface NewsletterControllerRepository
 {
 
+    /**
+     * @param $input
+     * @return mixed
+     */
     public function store($input);
 
 

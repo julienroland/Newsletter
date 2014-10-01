@@ -36,6 +36,9 @@ class NewsletterController extends Controller
         $this->newsletter = $newsletter;
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('newsletter::create');
@@ -58,7 +61,8 @@ class NewsletterController extends Controller
 
     /**
      * Store newsletter for auth user
-     * @param $request
+     * @param $input
+     * @internal param $request
      * @return mixed
      */
     private function storeAuth($input)
@@ -80,7 +84,8 @@ class NewsletterController extends Controller
 
     /**
      * Store newsletter for guest user
-     * @param $request
+     * @param $input
+     * @internal param $request
      * @return mixed
      */
     private function storeGuest($input)
