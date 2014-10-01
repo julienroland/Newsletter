@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class SimpleNewsletterDatabaseSeeder extends Seeder {
+class NewsletterDatabaseSeeder extends Seeder {
 
 	/**
 	 * Run the database seeds.
@@ -13,7 +13,7 @@ class SimpleNewsletterDatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
-		
+
 		// $this->call("OthersTableSeeder");
 	}
 

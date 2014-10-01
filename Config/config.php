@@ -1,7 +1,8 @@
 <?php return
     [
+        //Drivers
+        'driver'=>'native',
+
         'table' => 'newsletters',
-        'rules' => [
-            'email' => 'required |email |unique:newsletters,email',
-        ],
+
     ];

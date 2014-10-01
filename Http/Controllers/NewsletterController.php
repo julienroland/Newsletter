@@ -1,68 +1,107 @@
 <?php namespace Modules\Newsletter\Http\Controllers;
 
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\View;
+use Illuminate\Routing\Redirector as Redirect;
 use Laracasts\Flash\Flash;
-use Modules\SimpleNewsletter\Entities\SimpleNewsletter;
+use Modules\CreateNewsletterRequest;
+use Modules\Newsletter\Entities\Newsletter;
+use Modules\Newsletter\Http\Requests\CreateNewsletterRequest as NewsletterRequest;
+use Modules\Newsletter\Repositories\Eloquent\EloquentNewsletterControllerRepository;
 
 
 class NewsletterController extends Controller
 {
+    /**
+     * @var Newsletter
+     */
+    private $newsletter;
+    /**
+     * @var Redirect
+     */
+    private $redirect;
+    /**
+     * @var EloquentNewsletterControllerRepository
+     */
+    private $newsletterController;
+
+    /**
+     * @param Newsletter $newsletter
+     * @param Redirect $redirect
+     * @param EloquentNewsletterControllerRepository $newsletterController
+     */
+    public function __construct(
+        Newsletter $newsletter,
+        Redirect $redirect,
+        EloquentNewsletterControllerRepository $newsletterController
+    ) {
+        $this->newsletter = $newsletter;
+        $this->redirect = $redirect;
+        $this->newsletterController = $newsletterController;
+    }
 
     public function create()
     {
-        return View::make('newsletter::create');
+        return view('newsletter::create');
     }
 
-    public function store(Request $request)
+    /**
+     * Store newsletter
+     * @param NewsletterRequest $request
+     */
+    public function store(NewsletterRequest $request)
     {
-        $input = $request->all();
+        if (Sentinel::check()) {
 
-        $validator = Validator::make($input, Config::get('newsletter::config.rules'));
+            return $this->storeAuth($request->all());
 
-        if ($validator->passes()) {
-
-            if (Sentinel::check()) {
-
-                //$user = Sentinel::user();
-                //$input['email'] = $user->email;
-
-                $newsletter = SimpleNewsletter::create($input);
-
-                if (!is_null($newsletter)) {
-
-                    Flash::success(trans('newsletter::newsletter.added'));
-
-                    return Redirect::back();
-
-                }
-                Flash::error(trans('newsletter::newsletter.added-error'));
-
-                return Redirect::back()->withInput();
-            }
-
-            $newsletter = SimpleNewsletter::create($input);
-
-            if (!is_null($newsletter)) {
-
-                Flash::success(trans('newsletter::newsletter.added'));
-
-                return Redirect::back();
-            } else {
-
-                Flash::error(trans('newsletter::newsletter.added-error'));
-
-                return Redirect::back()->withInput();
-            }
         }
 
-        return Redirect::back();
+        return $this->storeGuest($request->all());
+    }
+
+    /**
+     * Store newsletter for auth user
+     * @param $request
+     * @return mixed
+     */
+    private function storeAuth($input)
+    {
+
+        $newsletter = $this->newsletterController->store($input);
+
+        if (!is_null($newsletter)) {
+
+            Flash::success(trans('newsletter::newsletter.added'));
+
+            return $this->redirect->back();
+
+        }
+        Flash::error(trans('newsletter::newsletter.added-error'));
+
+        return $this->redirect->back()->withInput();
+    }
+
+    /**
+     * Store newsletter for guest user
+     * @param $request
+     * @return mixed
+     */
+    private function storeGuest($input)
+    {
+        $newsletter = $this->newsletterController->store($input);
+
+        if (!is_null($newsletter)) {
+
+            Flash::success(trans('newsletter::newsletter.added'));
+
+            return $this->redirect->back();
+
+        }
+
+        Flash::error(trans('newsletter::newsletter.added-error'));
+
+        return $this->redirect->back()->withInput();
 
     }
 }

@@ -1,8 +1,8 @@
-<?php namespace Modules\SimpleNewsletter\Entities;
+<?php namespace Modules\Newsletter\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SimpleNewsletter extends Model {
+class Newsletter extends Model {
 
     protected $table = "newsletters";
 
