@@ -1,11 +1,11 @@
 <?php
 
-Route::group(['prefix' => 'simplenewsletter', 'namespace' => 'Modules\SimpleNewsletter\Http\Controllers'], function () {
+Route::group(['prefix' => 'newsletter', 'namespace' => 'Modules\Newsletter\Http\Controllers'], function () {
 
     Route::get('/',
-        ['as' => 'simpleNewsletter.create', 'uses' => 'SimpleNewsletterController@create']
+        ['as' => 'Newsletter.create', 'uses' => 'NewsletterController@create']
     );
     Route::post('store',
-        ['as' => 'simplenewsletter.store', 'uses' => 'SimpleNewsletterController@store']
+        ['as' => 'newsletter.store', 'uses' => 'NewsletterController@store']
     );
 });

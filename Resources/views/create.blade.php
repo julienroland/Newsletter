@@ -1,6 +1,6 @@
 
-{!! Form::open(['route'=>'simplenewsletter.store'])!!}
+{!! Form::open(['route'=>'newsletter.store'])!!}
 
-<input type="email" name="email" id="email" required placeholder="{{trans('simplenewsletter::form.email')}}"/>
-<input type="submit" value="S'inscrire">
+<input type="email" name="email" id="email" required placeholder="{{trans('newsletter::form.email')}}"/>
+<input type="submit" value="{{trans('newsletter::form.register')}}">
 {!! Form::close() !!}

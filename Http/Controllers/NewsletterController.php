@@ -1,4 +1,4 @@
-<?php namespace Modules\SimpleNewsletter\Http\Controllers;
+<?php namespace Modules\Newsletter\Http\Controllers;
 
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
 use Illuminate\Http\Request;
@@ -12,19 +12,19 @@ use Laracasts\Flash\Flash;
 use Modules\SimpleNewsletter\Entities\SimpleNewsletter;
 
 
-class SimpleNewsletterController extends Controller
+class NewsletterController extends Controller
 {
 
     public function create()
     {
-        return View::make('simplenewsletter::create');
+        return View::make('newsletter::create');
     }
 
     public function store(Request $request)
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, Config::get('simplenewsletter::config.rules'));
+        $validator = Validator::make($input, Config::get('newsletter::config.rules'));
 
         if ($validator->passes()) {
 
@@ -37,12 +37,12 @@ class SimpleNewsletterController extends Controller
 
                 if (!is_null($newsletter)) {
 
-                    Flash::success(trans('simplenewsletter::newsletter.added'));
+                    Flash::success(trans('newsletter::newsletter.added'));
 
                     return Redirect::back();
 
                 }
-                Flash::error(trans('simplenewsletter::newsletter.added-error'));
+                Flash::error(trans('newsletter::newsletter.added-error'));
 
                 return Redirect::back()->withInput();
             }
@@ -51,12 +51,12 @@ class SimpleNewsletterController extends Controller
 
             if (!is_null($newsletter)) {
 
-                Flash::success(trans('simplenewsletter::newsletter.added'));
+                Flash::success(trans('newsletter::newsletter.added'));
 
                 return Redirect::back();
             } else {
 
-                Flash::error(trans('simplenewsletter::newsletter.added-error'));
+                Flash::error(trans('newsletter::newsletter.added-error'));
 
                 return Redirect::back()->withInput();
             }

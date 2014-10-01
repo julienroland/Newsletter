@@ -10,11 +10,11 @@
 |
 */
 
-View::addNamespace('simplenewsletter', __DIR__ . '/Resources/views/');
+View::addNamespace('newsletter', __DIR__ . '/Resources/views/');
 
-Lang::addNamespace('simplenewsletter', __DIR__ . '/Resources/lang/');
+Lang::addNamespace('newsletter', __DIR__ . '/Resources/lang/');
 
-Config::addNamespace('simplenewsletter', __DIR__ . '/Config/');
+Config::addNamespace('newsletter', __DIR__ . '/Config/');
 
 /*
 |--------------------------------------------------------------------------
