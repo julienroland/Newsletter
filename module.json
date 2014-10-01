@@ -1,0 +1,13 @@
+{
+    "name": "SimpleNewsletter",
+    "alias": "simplenewsletter",
+    "description": "Simple newsletter for your website",
+    "keywords": [
+        "newsletter",
+        "simple newsletter"
+    ],
+    "require": {
+
+    },
+    "active": 1
+}
