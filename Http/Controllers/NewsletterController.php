@@ -13,17 +13,14 @@ use Modules\Newsletter\Repositories\Eloquent\EloquentNewsletterControllerReposit
 class NewsletterController extends Controller
 {
     /**
-     * @var Newsletter
+     * @var EloquentNewsletterControllerRepository
      */
     private $newsletter;
     /**
      * @var Redirect
      */
     private $redirect;
-    /**
-     * @var EloquentNewsletterControllerRepository
-     */
-    private $newsletterController;
+
 
     /**
      * @param Newsletter $newsletter
@@ -33,11 +30,10 @@ class NewsletterController extends Controller
     public function __construct(
         Newsletter $newsletter,
         Redirect $redirect,
-        EloquentNewsletterControllerRepository $newsletterController
+        EloquentNewsletterControllerRepository $newsletter
     ) {
-        $this->newsletter = $newsletter;
         $this->redirect = $redirect;
-        $this->newsletterController = $newsletterController;
+        $this->newsletter = $newsletter;
     }
 
     public function create()
@@ -68,7 +64,7 @@ class NewsletterController extends Controller
     private function storeAuth($input)
     {
 
-        $newsletter = $this->newsletterController->store($input);
+        $newsletter = $this->newsletter->store($input);
 
         if (!is_null($newsletter)) {
 
@@ -89,7 +85,7 @@ class NewsletterController extends Controller
      */
     private function storeGuest($input)
     {
-        $newsletter = $this->newsletterController->store($input);
+        $newsletter = $this->newsletter->store($input);
 
         if (!is_null($newsletter)) {
 
